@@ -96,7 +96,7 @@ public class StuffServiceImplementation implements StuffServiceUseCase {
                                     .stuffFullName(objects.getT2().getFullName())
                                     .stuffDesignation(objects.getT2().getDesignation())
                                     .build())
-                            .message("Found the stuff info by stuffId : " + stuffId)
+                            .message("Found Stuff Info by stuffId : " + stuffId)
                             .build();
                     return Mono.just(stuffResponseDto);
                 });
