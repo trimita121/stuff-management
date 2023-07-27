@@ -159,9 +159,9 @@ public class StuffServiceImplementation implements StuffServiceUseCase {
                         )
                         .doOnSuccess(stuffEntity -> activityServiceInterface.updateActivity(traceId, stuffEntity.getStuffId(), HttpMethod.PUT, "Ok").subscribeOn(Schedulers.immediate()).subscribe())
                         .doOnError(throwable -> activityServiceInterface.updateActivity(traceId, updateStuffDto.getStuffId(), HttpMethod.PUT, "Failed").subscribeOn(Schedulers.immediate()).subscribe())
-                        .doOnError(throwable -> new ExceptionHandlerUtil(HttpStatus.NOT_FOUND, "Data not found From activityResponseDto")))
+                        .onErrorMap(throwable -> new ExceptionHandlerUtil(HttpStatus.NOT_FOUND, "Data not found From activityResponseDto")))
 
-                .flatMap(objects -> stuffRepository.save(objects.getT2()))
+                .flatMap(tuple2 -> stuffRepository.save(tuple2.getT2()))
                 .doOnSuccess(stuff -> log.info(" updated Stuff is : {}", stuff))
                 .map(stuffEntity -> StuffResponseDto
                         .builder()
