@@ -1,4 +1,4 @@
-package com.example.stuff_management_reactivejava.activityLogClean.domain.commands.dto;
+package com.example.stuff_management_reactivejava.activityLogClean.application.port.in.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ActivityRequestDto {
+public class ActivityResponseDto {
     private String traceId;
     private String httpStatus;
     private String httpMethod;
