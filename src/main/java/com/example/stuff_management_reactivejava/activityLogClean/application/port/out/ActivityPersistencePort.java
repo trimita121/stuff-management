@@ -4,5 +4,6 @@ import com.example.stuff_management_reactivejava.activityLogClean.domain.Activit
 import reactor.core.publisher.Mono;
 
 public interface ActivityPersistencePort {
-   Mono<Activity> saveActivity(Activity activity);
+    Mono<Activity> saveActivity(Activity activity);
+    Mono<Activity> findActivityByTraceId(String traceId);
 }

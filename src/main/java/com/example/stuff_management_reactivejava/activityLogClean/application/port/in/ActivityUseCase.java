@@ -6,5 +6,5 @@ import reactor.core.publisher.Mono;
 
 public interface ActivityUseCase {
     Mono<ActivityResponseDto> saveActivity(ActivityRequestDto activityRequestDto);
-
+    Mono<ActivityResponseDto> updateActivity(String traceId, String status);
 }
