@@ -1,5 +1,6 @@
 package com.example.stuff_management_reactivejava.stuffClean.application.port.in.response;
 
+import com.example.stuff_management_reactivejava.stuffClean.Domain.Stuff;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AllStuffResponseDto {
-    List<StuffResponseDto> stuffResponseDtos;
-    String message;
-
+    private List<Stuff> stuffList;
+    private String message;
 }

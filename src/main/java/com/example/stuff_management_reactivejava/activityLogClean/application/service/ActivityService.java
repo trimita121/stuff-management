@@ -6,22 +6,19 @@ import com.example.stuff_management_reactivejava.activityLogClean.application.po
 import com.example.stuff_management_reactivejava.activityLogClean.application.port.out.ActivityPersistencePort;
 import com.example.stuff_management_reactivejava.activityLogClean.domain.commands.IActivityCommands;
 import com.example.stuff_management_reactivejava.activityLogClean.domain.commands.dto.ActivityDomainRequestDto;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class ActivityService implements ActivityUseCase {
-    private final ModelMapper modelMapper;
+    private final ModelMapper modelMapper = new ModelMapper();
     private final IActivityCommands iActivityCommands;
     private final ActivityPersistencePort port;
-    public ActivityService(ModelMapper modelMapper, IActivityCommands iActivityCommands, ActivityPersistencePort port) {
-        this.modelMapper = modelMapper;
-        this.iActivityCommands = iActivityCommands;
-        this.port = port;
-    }
 
     @Override
     public Mono<ActivityResponseDto> saveActivity(ActivityRequestDto activityRequestDto) {
@@ -33,6 +30,7 @@ public class ActivityService implements ActivityUseCase {
 
         return iActivityCommands.buildActivityDomain(domainRequestDto)
                 .flatMap(port::saveActivity)
+                .doOnSuccess(activity -> log.info("Successfully saved activity is : {}",activity))
                 .map(activity -> modelMapper.map(activity, ActivityResponseDto.class));
     }
 
@@ -45,10 +43,11 @@ public class ActivityService implements ActivityUseCase {
          */
         return port.findActivityByTraceId(traceId)
                 .map(activity -> {
-                    activity.setHttpStatus(status);
+                    activity.setStatus(status);
                     return activity;
                 })
                 .flatMap(port::saveActivity)
+                .doOnSuccess(activity -> log.info("Successfully updated activity is : {}",activity))
                 .map(activity -> modelMapper.map(activity, ActivityResponseDto.class));
     }
 }

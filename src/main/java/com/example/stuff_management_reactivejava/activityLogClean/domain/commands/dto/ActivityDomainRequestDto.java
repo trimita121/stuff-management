@@ -11,10 +11,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ActivityDomainRequestDto {
+    private String stuffId;
     private String traceId;
     private String httpStatus;
     private String httpMethod;
     private LocalDateTime createdOn;
-    private String createdBy;
+    private String editedBy;
     private String requestUrl;
 }

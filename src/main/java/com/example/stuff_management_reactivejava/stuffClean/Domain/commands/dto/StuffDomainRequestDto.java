@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StuffResponseDto {
+public class StuffDomainRequestDto {
     private String id;
     private String stuffId;
     private String nickName;
